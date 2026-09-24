@@ -1,0 +1,40 @@
+name: 📄 Generate documentation for Backstage
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/techdocs.yml"
+      - "docs/**"
+      - "mkdocs.yml"
+jobs:
+  publish-techdocs-site:
+    runs-on: ubuntu-latest
+
+    env:
+      ENTITY_NAMESPACE: "default"
+      ENTITY_KIND: "api"
+      ENTITY_NAME: "heroes-dotnet-api"
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "18"
+      - name: Install TechDocs CLI
+        run: npm install -g @techdocs/cli
+        
+      - name: Install MkDocs TechDocs Core
+        run: pip install mkdocs-techdocs-core
+        
+      - name: Generate documentation
+        run: techdocs-cli generate --no-docker --verbose
+      - name: Publish documentation on Azure Blob Storage
+        run: |
+          techdocs-cli publish \
+          --entity $ENTITY_NAMESPACE/$ENTITY_KIND/$ENTITY_NAME \
+          --publisher-type azureBlobStorage \
+          --azureAccountName ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }} \
+          --azureAccountKey ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} \
+          --storage-name ${{ secrets.AZURE_STORAGE_CONTAINER_NAME }}

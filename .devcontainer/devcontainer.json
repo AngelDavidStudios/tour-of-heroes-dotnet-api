@@ -1,0 +1,75 @@
+{
+	"name": "🦸 Tour of Heroes API ⚔️ | .NET 9 + PostgreSQL + OpenTelemetry 🚀",
+	"dockerComposeFile": "compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"workbench.colorTheme": "Aura Dracula Spirit",
+				"mssql.connections": [
+					{
+						"server": "db,1433",
+						"database": "",
+						"authenticationType": "SqlLogin",
+						"user": "sa",
+						"password": "P@ssword",
+						"emptyPasswordInput": false,
+						"savePassword": false,
+						"profileName": "mssql-container",
+						"trustServerCertificate": true
+					}
+				]
+			},
+			"extensions": [
+				"ms-dotnettools.csharp",
+				"ms-dotnettools.csdevkit",
+				"ms-mssql.mssql",
+				"ckolkman.vscode-postgres",
+				"humao.rest-client",
+				"ms-azuretools.vscode-docker",
+				"redhat.vscode-yaml",
+				"GitHub.copilot",
+				"GitHub.copilot-chat",
+				"redhat.vscode-xml",
+				"JoseMurilloc.aura-spirit-dracula"
+			]
+		}
+	},
+	"remoteEnv": {
+		"ConnectionStrings__DefaultConnection": "Server=db,1433;Initial Catalog=heroes;Persist Security Info=False;User ID=sa;Password=P@ssword;TrustServerCertificate=True"
+	},
+	"forwardPorts": [
+		5020,
+		5432,
+		16686,
+		9090,
+		3000
+	],
+	"portsAttributes": {
+		"5020": {
+			"protocol": "http",
+			"label": "🦸 Tour of Heroes API"
+		},
+		"5432": {
+			"label": "🐘 PostgreSQL"
+		},
+		"16686": {
+			"protocol": "http",
+			"label": "🔍 Jaeger Tracing"
+		},
+		"9090": {
+			"label": "📊 Prometheus Metrics",
+			"protocol": "http"
+		},
+		"3000": {
+			"label": "📈 Grafana Dashboards",
+			"protocol": "http"
+		}
+	},
+	"features": {
+		"ghcr.io/devcontainers-extra/features/terraform-asdf:2": {},
+		"ghcr.io/devcontainers/features/azure-cli:1": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {}
+	}
+}
