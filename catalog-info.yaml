@@ -18,7 +18,7 @@ metadata:
     backstage.io/techdocs-ref: dir:.
     github.com/project-slug: AngelDavidStudios/tour-of-heroes-dotnet-api
 spec:
-  type: openai
+  type: openapi
   lifecycle: production
   owner: user:AngelDavidStudios
   system: tour-of-heroes
